@@ -29,7 +29,7 @@ export default class KannelConnection {
             .then(rawXml => {
                 console.log('still ok')
                 this.status = 'active'; 
-                this.info = parseXml(rawXml)['gateway'];   
+                this.info = parseXml(rawXml, ['smsc'])['gateway'];   
             })
             .catch(error => {
                 console.log(error.message); 

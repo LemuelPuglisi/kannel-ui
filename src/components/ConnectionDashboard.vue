@@ -24,6 +24,13 @@
       <button @click="currentConnection.hardRestart()">Hard restart</button>
       <button @click="currentConnection.reloadLists()">Reload lists</button>
 
+      <hr>
+
+      <h4>Smsc list</h4>
+      <div class="smsc-box" v-for="smsc in smscs" v-bind:key="smsc.id.value"> 
+        {{ smsc.id.value }} 
+      </div>
+
     </div>
   </div>
 </template>
@@ -39,6 +46,9 @@ export default {
     }),
     instanceSuspended() {
       return this.currentConnection.instanceIsSuspended(); 
+    }, 
+    smscs() {
+      return this.currentConnection.info.smscs.smsc; 
     }
   },
 };
@@ -53,5 +63,11 @@ export default {
 
 button {
   margin: 5px;
+}
+
+.smsc-box {
+  padding: 10px; 
+  margin-bottom: 5px; 
+  border: 1px solid darkmagenta; 
 }
 </style>

@@ -8,6 +8,13 @@ export default createStore({
         kannelConnectionsList: [], 
         currentConnection: null, 
     },
+    getters: {
+        
+        connectionsCount(state) {
+            return state.kannelConnectionsList.length(); 
+        }, 
+
+    }, 
     actions, 
     mutations
 })

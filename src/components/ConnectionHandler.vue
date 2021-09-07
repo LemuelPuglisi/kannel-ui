@@ -44,8 +44,6 @@
 
 <script>
 import { mapState } from "vuex";
-import CrossOriginHttp from '../class/CrossOriginHttp';
-import KannelConnection from "../class/KannelConnection";
 
 export default {
   name: "connection-handler",
@@ -69,20 +67,24 @@ export default {
     };
   },
   methods: {
+
     addNewConnection() {
       if (this.emptyConnectionForm) {
         return;
       }
-      const connection = new KannelConnection(
-        new CrossOriginHttp('http://localhost:8181'),
-        this.newConnectionHost,
-        this.newConnectionPassword,
-        this.newConnectionPort
-      );
-      this.$store.dispatch("addKannelConnection", connection);
-      this.newConnectionHost = "";
-      this.newConnectionPassword = "";
+      this.$store.dispatch("addKannelConnection", {
+        host: this.newConnectionHost, 
+        pass: this.newConnectionPassword, 
+        port: this.newConnectionPort
+      });
+      this.clearFields(); 
     },
+
+    clearFields() {
+      this.newConnectionHost = ''; 
+      this.newConnectionPort = 13000; 
+      this.newConnectionPassword = ''; 
+    }, 
 
     removeConnection(connection) {
       if (!this.currentConnection) return;

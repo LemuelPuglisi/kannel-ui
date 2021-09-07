@@ -5,7 +5,9 @@ export const parseXml = function (xml, arrayTags) {
     function parseNode (xmlNode, result) {
 
         if (xmlNode.nodeName == '#text') {
-            result['value'] = xmlNode.nodeValue;  
+            if (xmlNode.nodeValue.trim()) {
+                result['value'] = xmlNode.nodeValue;  
+            }
             return; 
         }
     
