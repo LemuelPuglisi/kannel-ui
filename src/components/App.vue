@@ -2,10 +2,10 @@
 
   <div class="p-grid">
     <div class="p-col-4">
-      <instance-handler/>
+      <connection-handler/>
     </div>
     <div class="p-col-8">
-      <instance-dashboard/>
+      <connection-dashboard/>
     </div>
   </div>
 
@@ -18,16 +18,16 @@
 
 <script>
 
-import InstanceHandler from './InstanceHandler.vue';
-import InstanceDashboard from './InstanceDashboard.vue';
-import KannelInstance from '../class/KannelInstance';
+import ConnectionHandler from './ConnectionHandler.vue';
+import ConnectionDashboard from './ConnectionDashboard.vue';
+import KannelConnection from '../class/KannelConnection';
 import CrossOriginHttp from '../class/CrossOriginHttp';
 
 export default {
   name: 'App',
   components: {
-    InstanceHandler, 
-    InstanceDashboard
+    ConnectionHandler, 
+    ConnectionDashboard
   }, 
   data() {
     return {
@@ -37,14 +37,14 @@ export default {
   methods: {
     debug() {
       const proxy = new CrossOriginHttp('http://localhost:8181'); 
-      const instance = new KannelInstance(proxy, 'localhost', 'bar'); 
-      instance.connect(); 
-      console.log(instance.info)
+      const connection = new KannelConnection(proxy, 'localhost', 'bar'); 
+      connection.connect(); 
+      console.log(connection.info)
     }
   },
   created() {
     setInterval(() => {
-      this.$store.dispatch('pingAllInstances')
+      this.$store.dispatch('pingAllConnections')
     }, 2000); 
   }
 }

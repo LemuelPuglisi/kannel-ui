@@ -1,21 +1,21 @@
 
 export default {
 
-    addKannelInstance({ commit }, instance) {
-        commit('ADD_KANNEL_INSTANCE', instance); 
+    addKannelConnection({ commit }, connection) {
+        commit('ADD_KANNEL_CONNECTION', connection); 
     }, 
 
-    setCurrentInstance({ commit }, host ) {
-        commit('SET_CURRENT_INSTANCE', host); 
+    setCurrentConnection({ commit }, host ) {
+        commit('SET_CURRENT_CONNECTION', host); 
     }, 
     
-    removeKannelInstance({ commit }, host) {
-        commit('REMOVE_KANNEL_INSTANCE', host)
+    removeKannelConnection({ commit }, host) {
+        commit('REMOVE_KANNEL_CONNECTION', host)
     }, 
 
-    pingAllInstances({ state }) {
-        state.kannelInstancesList.forEach(
-            instance => instance.connect()
+    pingAllConnections({ state }) {
+        state.kannelConnectionsList.forEach(
+            connection => connection.connect()
         ); 
     }
 

@@ -5,8 +5,8 @@ import mutations from './mutations';
 
 export default createStore({
     state: {
-        kannelInstancesList: [], 
-        currentInstance: null, 
+        kannelConnectionsList: [], 
+        currentConnection: null, 
     },
     actions, 
     mutations
