@@ -1,12 +1,34 @@
 const KANNEL_ADMIN_STD_PORT = 13000;
 
+import { parseXml } from "../utils/XmlToJs";
+
 export default class KannelInstance {
 
-    constructor(host, password, port=KANNEL_ADMIN_STD_PORT) {
+    constructor(http, host, password, port=KANNEL_ADMIN_STD_PORT) {
+        this.http = http; 
         this.host = host; 
         this.password = password;
         this.status = 'untested'; 
-        this.port = port; 
+        this.port = port;
+        this.info = null; 
+    }
+
+    connect() {
+        const statusUrl = this.getStatusEndpoint(); 
+        this.http.get(statusUrl)
+            .then(response => response.text())
+            .then(rawXml => {
+                this.status = 'active'; 
+                this.info = parseXml(rawXml)['gateway'];   
+            })
+            .catch(error => {
+                this.status = 'dead';
+                console.log(error) 
+            })
+    }
+
+    getStatusEndpoint() {
+        return this.addPassword(this.getEndpoint('status.xml')); 
     }
 
     getEndpoint(endpoint) {
@@ -15,19 +37,6 @@ export default class KannelInstance {
 
     addPassword(url) {
         return url + 'password=' + this.password; 
-    }
-
-    ping() {
-        console.log('Pinging kannel host.'); 
-        const rn = Math.ceil(Math.random(100) * 100); 
-        console.log(rn)
-        this.status = rn % 2 == 0 ? 'active' : 'dead'; 
-    }
-
-    getStatus() {
-        const url = this.addPassword(this.getEndpoint('status.xml'))
-        fetch(url)
-            .then(data => console.log(data));
     }
 
 }

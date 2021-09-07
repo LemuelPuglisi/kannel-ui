@@ -44,6 +44,7 @@
 
 <script>
 import { mapState } from "vuex";
+import CrossOriginHttp from '../class/CrossOriginHttp';
 import KannelInstance from "../class/KannelInstance";
 
 export default {
@@ -73,6 +74,7 @@ export default {
         return;
       }
       const instance = new KannelInstance(
+        new CrossOriginHttp('http://localhost:8181'),
         this.newInstanceHost,
         this.newInstancePassword,
         this.newInstancePort

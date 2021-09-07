@@ -1,8 +1,20 @@
 <template>
   <div id="instance-dashboard">
     <h2>Dashboard</h2>
-    <p v-if="!currentInstance">Current instance not selected.</p>
-    <p v-else>{{ currentInstance.host}}:{{ currentInstance.password }} is {{ currentInstance.status }} </p>
+
+    <div v-if="!currentInstance">
+      <p>No instance selected.</p>
+    </div>
+
+    <div v-else-if="currentInstance.status != 'active'">
+      <p>Selected instance is {{ currentInstance.status }}</p>
+    </div>
+
+    <div v-else>
+      <h4>{{ currentInstance.host }} ({{ currentInstance.info.status.value }}) </h4>
+      <p>{{ currentInstance.info.version.value }}</p>
+    </div>
+
   </div>
 </template>
 

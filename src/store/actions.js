@@ -15,7 +15,7 @@ export default {
 
     pingAllInstances({ state }) {
         state.kannelInstancesList.forEach(
-            instance => instance.ping()
+            instance => instance.connect()
         ); 
     }
 
