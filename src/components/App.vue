@@ -1,25 +1,34 @@
 <template>
-    <Sidebar v-model:visible="sidebarFlag"> Content </Sidebar>
-    <Button icon="pi pi-arrow-right" @click="sidebarFlag = !sidebarFlag" />
-    <h1>porcodiooo</h1>
 
-    <div class="p-grid">
-        <div class="p-col-4">
+    <Splitter>
+        <SplitterPanel :size="30" :minSize="20">
             <connection-handler />
+        </SplitterPanel>
+        <SplitterPanel :size="70" :minSize="50">
+            <connection-dashboard/>
+        </SplitterPanel>
+    </Splitter>
+
+    <!-- <div class="p-grid">
+        <div class="p-col-4">
+            
         </div>
         <div class="p-col-8">
             <connection-dashboard />
         </div>
-    </div>
+    </div> -->
 
-    <hr />
+    <!-- <hr />
     <button @click="debug">debug call</button>
-    <p v-html="debugResult"></p>
+    <p v-html="debugResult"></p> -->
 </template>
 
 <script>
-import Sidebar from "primevue/sidebar/sfc";
-import Button from "primevue/button/sfc";
+// import Sidebar from "primevue/sidebar/sfc";
+// import Button from "primevue/button/sfc";
+import Splitter from 'primevue/splitter/sfc'; 
+import SplitterPanel from 'primevue/splitterpanel/sfc'; 
+
 
 import ConnectionHandler from "./ConnectionHandler.vue";
 import ConnectionDashboard from "./ConnectionDashboard.vue";
@@ -31,8 +40,10 @@ export default {
     components: {
         ConnectionHandler,
         ConnectionDashboard,
-        Sidebar,
-        Button,
+        // Sidebar,
+        // Button,
+        Splitter, 
+        SplitterPanel
     },
     data() {
         return {
