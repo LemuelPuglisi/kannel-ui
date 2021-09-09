@@ -1,86 +1,119 @@
 <template>
   <div id="connection-handler">
     <h2>Kannel connections</h2>
-    <Splitter layout="vertical" class="p-p-2">
-      <SplitterPanel>
-        <form @submit.prevent="addNewConnection" class="p-mb-3">
-          <div class="p-fluid">
-            <div class="p-field">
-              <InputText
-                class=""
-                type="text"
-                placeholder="host"
-                v-model.trim="newConnectionHost"
-              />
-            </div>
-            <div class="p-field p-mb-4">
-              <Password
-                v-model="newConnectionPassword"
-                class=""
-                placeholder="password"
-              />
-            </div>
-            <div class="p-field p-mb-4">
-              <InputNumber
-                v-model="newConnectionPort"
-                class=" p-ml-2"
-                placeholder="port"
-                :min="0"
-                :max="65535"
-                :useGrouping="0"
-              />
-            </div>
-            <div class="p-ml-2 p-mt-2">
-              <Button
-                type="submit"
-                label="connect"
-                @click="addKannelConnection"
-                class="p-button-outlined p-button-rounded"
-              />
-            </div>
-          </div>
-        </form>
-      </SplitterPanel>
-      <SplitterPanel>
-        <div id="connections-list-box">
-          <h3>List of kannel connections</h3>
-          <ul>
-            <li
-              v-for="connection in kannelConnectionsList"
-              v-bind:key="connection.host"
-            >
-              <span @click="removeConnection(connection)">[X]</span>
-              &nbsp;&nbsp;
-              <span @click="selectConnection(connection)"
-                >{{ connection.host }} ( {{ connection.status }} )</span
-              >
-            </li>
-          </ul>
+
+    <form @submit.prevent="addNewConnection" class="p-mb-3">
+      <div class="p-fluid">
+        <div class="p-field">
+          <InputText
+            type="text"
+            placeholder="host"
+            v-model.trim="newConnectionHost"
+            required
+          />
         </div>
-      </SplitterPanel>
-    </Splitter>
+        <div class="p-field p-mb-4">
+          <InputText
+            type="password"
+            placeholder="password"
+            v-model.trim="newConnectionPassword"
+            required
+          />
+        </div>
+        <div class="p-field p-mb-4">
+          <InputNumber
+            v-model="newConnectionPort"
+            class="p-ml-2"
+            placeholder="port"
+            :min="0"
+            :max="65535"
+            :useGrouping="0"
+            required
+          />
+        </div>
+        <div class="p-ml-2 p-mt-2">
+          <Button
+            type="submit"
+            label="connect"
+            @click="addKannelConnection"
+            class="p-button-outlined p-button-rounded"
+            :disabled="emptyConnectionForm"
+          />
+        </div>
+      </div>
+    </form>
+
+    <div class="p-mt-5 p-mb-5">
+      <Divider align="center">
+        <span class="p-tag">Connections list</span>
+      </Divider>
+    </div>
+
+    <div id="connections-list-box">
+
+
+      <ScrollPanel style="height: 350px; width: 100%">
+        <!-- <Card v-for="connection in kannelConnectionsList" v-bind:key="connection.host">
+          <template #subtitle>{{ connection.host }}</template>
+          <template #content>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
+            sed consequuntur error repudiandae numquam deserunt quisquam
+            repellat libero asperiores earum nam nobis, culpa ratione quam
+            perferendis esse, cupiditate neque quas!
+          </template>
+          <template #footer>
+            <Button icon="pi pi-check" label="Save" />
+            <Button
+              icon="pi pi-times"
+              label="Cancel"
+              class="p-button-secondary"
+              style="margin-left: 0.5em"
+            />
+          </template>
+        </Card> -->
+
+        <connection-item
+          v-for="connection in kannelConnectionsList"
+          v-bind:key="connection.host"
+          :connection="connection"
+          @click="selectConnection(connection)"
+        />
+
+
+        <ScrollTop
+          target="parent"
+          :threshold="100"
+          class="custom-scrolltop"
+          icon="pi pi-arrow-up"
+        />
+      </ScrollPanel>
+    </div>
   </div>
 </template>
 
 
 <script>
 import { mapState } from "vuex";
-import Splitter from "primevue/splitter/sfc";
-import SplitterPanel from "primevue/splitterpanel/sfc";
 import InputText from "primevue/inputtext/sfc";
-import Password from "primevue/inputtext/sfc";
 import InputNumber from "primevue/inputnumber/sfc";
 import Button from "primevue/button/sfc";
+import Divider from "primevue/divider/sfc";
+import ScrollPanel from "primevue/scrollpanel/sfc";
+import ScrollTop from "primevue/scrolltop/sfc";
+// import Card from "primevue/card/sfc";
+import ConnectionItem from "./ConnectionItem";
 
 export default {
   name: "connection-handler",
   components: {
-    Splitter,
-    SplitterPanel,
     InputText,
-    Password,
     InputNumber,
     Button,
+    Divider,
+    ScrollPanel,
+    ScrollTop,
+    // Card,
+    ConnectionItem,
   },
 
   computed: {
@@ -138,15 +171,21 @@ export default {
 <style scoped>
 #connection-handler {
   padding: 20px;
+  margin-right: 15px;
 }
 
 #connection-handler input {
   margin: 8px;
 }
 
-#connection-list-box {
+#connections-list-box {
+  width: 100%;
+  border: 1px solid #3f4b5b;
+  border-radius: 10px;
   padding: 10px;
-  border: 1px solid red;
+  padding-left: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 ul li span {
@@ -159,5 +198,17 @@ ul li span:hover:first-child {
 
 ul li span:hover:nth-child(2) {
   color: blue;
+}
+
+/* DIVIDER CSS WORKAROUND BC OF PRIMEVUE BUG */
+
+.p-divider-solid.p-divider-horizontal:before {
+  border-top-style: solid !important;
+}
+.p-divider-dashed.p-divider-horizontal:before {
+  border-top-style: dashed !important;
+}
+.p-divider-solid.p-divider-vertical:before {
+  border-left-style: solid !important;
 }
 </style>
