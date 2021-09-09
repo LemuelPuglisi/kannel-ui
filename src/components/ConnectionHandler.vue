@@ -27,7 +27,7 @@
             placeholder="port"
             :min="0"
             :max="65535"
-            :useGrouping="0"
+            :useGrouping="false"
             required
           />
         </div>
@@ -35,7 +35,7 @@
           <Button
             type="submit"
             label="connect"
-            @click="addKannelConnection"
+            @click="addNewConnection"
             class="p-button-outlined p-button-rounded"
             :disabled="emptyConnectionForm"
           />
@@ -50,7 +50,7 @@
     </div>
 
     <div id="connections-list-box">
-      <ScrollPanel style="height: 350px; width: 100%">
+      <ScrollPanel style="max-height: 40vh; width: 100%">
         <connection-item
           v-for="connection in kannelConnectionsList"
           v-bind:key="connection.host"
@@ -67,6 +67,10 @@
       </ScrollPanel>
     </div>
   </div>
+
+  <!-- {{ currentConnection }} <br>
+  {{ kannelConnectionsList }} -->
+
 </template>
 
 
@@ -146,6 +150,7 @@ export default {
 </script>
 
 <style scoped>
+
 #connection-handler {
   padding: 20px;
   margin-right: 15px;
@@ -165,17 +170,6 @@ export default {
   justify-content: center;
 }
 
-ul li span {
-  cursor: pointer;
-}
-
-ul li span:hover:first-child {
-  color: red;
-}
-
-ul li span:hover:nth-child(2) {
-  color: blue;
-}
 
 /* DIVIDER CSS WORKAROUND BC OF PRIMEVUE BUG */
 

@@ -11,11 +11,15 @@ export default {
         )
     }, 
 
+    REMOVE_CURRENT_CONNECTION (state) {
+        state.currentConnection = null; 
+    }, 
+
     REMOVE_KANNEL_CONNECTION (state, host) {
         state.kannelConnectionsList = state.kannelConnectionsList.filter(
             connection => connection.host != host 
         );
-        if (state.currentConnection.host == host) {
+        if (state.currentConnection && state.currentConnection.host == host) {
             state.currentConnection = null; 
         }
     }

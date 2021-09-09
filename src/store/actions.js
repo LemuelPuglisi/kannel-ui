@@ -15,11 +15,16 @@ export default {
         commit('SET_CURRENT_CONNECTION', host);
     },
 
+    removeCurrentConnection({ commit }) {
+        commit('REMOVE_CURRENT_CONNECTION'); 
+    }, 
+
     removeKannelConnection({ commit }, host) {
         commit('REMOVE_KANNEL_CONNECTION', host)
     },
 
     pingAllConnections({ state }) {
+        console.log('pinging all connections.')
         state.kannelConnectionsList.forEach(
             connection => connection.connect()
         );

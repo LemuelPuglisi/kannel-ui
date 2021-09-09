@@ -1,6 +1,6 @@
 <template>
   <Toast />
-  <Splitter>
+  <Splitter style="width: 100%">
     <SplitterPanel :size="30" :minSize="20">
       <connection-handler />
     </SplitterPanel>
@@ -11,14 +11,12 @@
 </template>
 
 <script>
-// import Button from "primevue/button/sfc";
 import Splitter from "primevue/splitter/sfc";
 import SplitterPanel from "primevue/splitterpanel/sfc";
-import Toast from 'primevue/toast/sfc'; 
+import Toast from "primevue/toast/sfc";
 
 import ConnectionHandler from "./ConnectionHandler.vue";
 import ConnectionDashboard from "./ConnectionDashboard.vue";
-
 
 export default {
   name: "App",
@@ -27,7 +25,7 @@ export default {
     ConnectionDashboard,
     Splitter,
     SplitterPanel,
-    Toast
+    Toast,
   },
   data() {
     return {
@@ -35,35 +33,21 @@ export default {
       sidebarFlag: true,
     };
   },
-  methods: {
-    // debug() {
-    //   // const proxy = new CrossOriginHttp("http://localhost:8181");
-    //   // const connection = new KannelConnection(proxy, "localhost", "bar");
-    //   // connection.connect();
-    //   // console.log(connection.info);
-    //   this.$toast.add({
-    //     severity: "success",
-    //     summary: "Success Message",
-    //     detail: "Order submitted",
-    //     life: 3000,
-    //   });
-    // },
-  },
   created() {
     setInterval(() => {
       this.$store.dispatch("pingAllConnections");
-    }, 2000);
+    }, 1500);
   },
 };
 </script>
 
-<style scoped>
-table {
-  text-align: left;
-}
-
+<style>
 #app {
-  padding: 20px;
+  padding: 30px;
   width: 100%;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 </style>
