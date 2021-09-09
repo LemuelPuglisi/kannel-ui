@@ -50,35 +50,13 @@
     </div>
 
     <div id="connections-list-box">
-
-
       <ScrollPanel style="height: 350px; width: 100%">
-        <!-- <Card v-for="connection in kannelConnectionsList" v-bind:key="connection.host">
-          <template #subtitle>{{ connection.host }}</template>
-          <template #content>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore
-            sed consequuntur error repudiandae numquam deserunt quisquam
-            repellat libero asperiores earum nam nobis, culpa ratione quam
-            perferendis esse, cupiditate neque quas!
-          </template>
-          <template #footer>
-            <Button icon="pi pi-check" label="Save" />
-            <Button
-              icon="pi pi-times"
-              label="Cancel"
-              class="p-button-secondary"
-              style="margin-left: 0.5em"
-            />
-          </template>
-        </Card> -->
-
         <connection-item
           v-for="connection in kannelConnectionsList"
           v-bind:key="connection.host"
           :connection="connection"
           @click="selectConnection(connection)"
         />
-
 
         <ScrollTop
           target="parent"
@@ -146,7 +124,13 @@ export default {
         host: this.newConnectionHost,
         pass: this.newConnectionPassword,
         port: this.newConnectionPort,
-      });
+      }); 
+      this.$toast.add({
+        severity:'success', 
+        summary: 'Success Message', 
+        detail:'Order submitted', 
+        life: 3000}
+      );
       this.clearFields();
     },
 
@@ -154,11 +138,6 @@ export default {
       this.newConnectionHost = "";
       this.newConnectionPort = 13000;
       this.newConnectionPassword = "";
-    },
-
-    removeConnection(connection) {
-      if (!this.currentConnection) return;
-      this.$store.dispatch("removeKannelConnection", connection.host);
     },
 
     selectConnection(connection) {

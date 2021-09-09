@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import store from './store'
 import App from './components/App.vue'; 
 import PrimeVue from 'primevue/config'; 
+import ToastService from 'primevue/toastservice';
 
 import '@/assets/css/main.css'; 
 import 'primeflex/primeflex.css';
@@ -13,6 +14,7 @@ import 'primeicons/primeicons.css'
 const app = createApp(App); 
 
 app.use(store); 
-app.use(PrimeVue)
+app.use(PrimeVue);
+app.use(ToastService);
 
 app.mount('#app'); 
