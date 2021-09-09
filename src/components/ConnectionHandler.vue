@@ -3,11 +3,11 @@
     <h2>Kannel connections</h2>
     <Splitter layout="vertical" class="p-p-2">
       <SplitterPanel>
-        <form @submit.prevent="addNewConnection">
+        <form @submit.prevent="addNewConnection" class="p-mb-3">
           <div class="p-fluid">
             <div class="p-field">
               <InputText
-                class="p-inputtext-lg"
+                class=""
                 type="text"
                 placeholder="host"
                 v-model.trim="newConnectionHost"
@@ -16,22 +16,27 @@
             <div class="p-field p-mb-4">
               <Password
                 v-model="newConnectionPassword"
-                class="p-inputtext-lg"
+                class=""
                 placeholder="password"
               />
             </div>
-            <div class="p-field">
+            <div class="p-field p-mb-4">
               <InputNumber
                 v-model="newConnectionPort"
-                class="p-inputtext-lg p-ml-2"
+                class=" p-ml-2"
                 placeholder="port"
                 :min="0"
                 :max="65535"
                 :useGrouping="0"
               />
             </div>
-            <div class="p-field">
-              <Button type="submit" label="Connect" @click="addKannelConnection" class="p-ml-2 p-mt-2" />
+            <div class="p-ml-2 p-mt-2">
+              <Button
+                type="submit"
+                label="connect"
+                @click="addKannelConnection"
+                class="p-button-outlined p-button-rounded"
+              />
             </div>
           </div>
         </form>
@@ -100,7 +105,7 @@ export default {
   },
   methods: {
     addNewConnection() {
-      console.log('eccome')
+      console.log("eccome");
       if (this.emptyConnectionForm) {
         return;
       }

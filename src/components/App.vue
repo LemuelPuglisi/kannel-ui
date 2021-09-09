@@ -21,6 +21,7 @@
     <!-- <hr />
     <button @click="debug">debug call</button>
     <p v-html="debugResult"></p> -->
+
 </template>
 
 <script>
@@ -32,8 +33,8 @@ import SplitterPanel from 'primevue/splitterpanel/sfc';
 
 import ConnectionHandler from "./ConnectionHandler.vue";
 import ConnectionDashboard from "./ConnectionDashboard.vue";
-import KannelConnection from "../class/KannelConnection";
-import CrossOriginHttp from "../class/CrossOriginHttp";
+// import KannelConnection from "../class/KannelConnection";
+// import CrossOriginHttp from "../class/CrossOriginHttp";
 
 export default {
     name: "App",
@@ -53,10 +54,11 @@ export default {
     },
     methods: {
         debug() {
-            const proxy = new CrossOriginHttp("http://localhost:8181");
-            const connection = new KannelConnection(proxy, "localhost", "bar");
-            connection.connect();
-            console.log(connection.info);
+            // const proxy = new CrossOriginHttp("http://localhost:8181");
+            // const connection = new KannelConnection(proxy, "localhost", "bar");
+            // connection.connect();
+            // console.log(connection.info);
+            alert('clicked'); 
         },
     },
     created() {
