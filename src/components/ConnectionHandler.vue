@@ -78,7 +78,6 @@ import Button from "primevue/button/sfc";
 import Divider from "primevue/divider/sfc";
 import ScrollPanel from "primevue/scrollpanel/sfc";
 import ScrollTop from "primevue/scrolltop/sfc";
-// import Card from "primevue/card/sfc";
 import ConnectionItem from "./ConnectionItem";
 
 export default {
@@ -90,7 +89,6 @@ export default {
     Divider,
     ScrollPanel,
     ScrollTop,
-    // Card,
     ConnectionItem,
   },
 
@@ -127,9 +125,9 @@ export default {
       }); 
       this.$toast.add({
         severity:'success', 
-        summary: 'Success Message', 
-        detail:'Order submitted', 
-        life: 3000}
+        summary: 'Connection created', 
+        detail: `Trying to connect to ${this.newConnectionHost}`, 
+        life: 2000}
       );
       this.clearFields();
     },
