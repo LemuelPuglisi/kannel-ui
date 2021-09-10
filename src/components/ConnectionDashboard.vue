@@ -11,49 +11,57 @@
             label="Resume"
             @click="currentConnection.resume()"
             :disabled="!instanceSuspended || connectionNotActive"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined p-button-success"
+            icon="pi pi-play"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-success"
           />
           <Button
             label="Isolate"
             :disabled="connectionNotActive"
             @click="currentConnection.isolate()"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined p-button-warning"
+            icon="pi pi-lock"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-warning"
           />
           <Button
             label="Suspend"
             @click="currentConnection.suspend()"
             :disabled="connectionNotActive"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined p-button-warning"
+            icon="pi pi-pause"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-warning"
+          />
+          <Button
+            label="s-restart"
+            @click="currentConnection.softRestart()"
+            :disabled="connectionNotActive"
+            icon="pi pi-replay"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-warning"
+          />
+          <Button
+            label="h-restart"
+            @click="currentConnection.hardRestart()"
+            :disabled="connectionNotActive"
+            icon="pi pi-replay"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-danger"
           />
           <Button
             label="Shutdown"
             @click="currentConnection.shutdown()"
             :disabled="connectionNotActive"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined p-button-danger"
+            icon="pi pi-power-off"
+            class="p-mr-2 p-button-sm p-button-outlined p-button-danger"
           />
           <Button
-            label="Restart"
-            :disabled="connectionNotActive"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined p-button-danger"
-          />
-          <Button
-            label="Reload lists"
+            label="bwlist"
             @click="currentConnection.reloadLists()"
             :disabled="connectionNotActive"
-            icon="pi pi-plus"
-            class="p-mr-2 p-button-outlined"
+            icon="pi pi-refresh"
+            class="p-mr-2 p-button-sm p-button-outlined"
           />
         </template>
         <template #right>
           <Button
             icon="pi pi-times"
             @click="expelCurrentConnection"
-            class="p-button-danger"
+            class="p-button-sm p-button-danger"
           />
         </template>
       </Toolbar>
@@ -77,16 +85,68 @@
         <Panel>
           <template #header>
             <span>
-              {{ currentConnection.host }} 
+              {{ currentConnection.host }}
             </span>
+            <div class="status-badge p-mt-5 p-d-flex p-flex-row-reverse">
+              <span class="p-tag">{{
+                currentConnection.info.status.value
+              }}</span>
+            </div>
           </template>
-          {{ currentConnection.info.version.value }}
-          <div class="p-mt-5 p-d-flex p-flex-row-reverse">
-            <span class="p-tag">{{ currentConnection.info.status.value }}</span>
-          </div>
+
+          <Accordion :activeIndex="1">
+          
+            <AccordionTab header="Instance status">
+              {{ currentConnection.info.version.value }}
+            </AccordionTab>
+          
+            <AccordionTab header="Misc. informations">
+              <div class="p-grid">
+                <div class="p-col">
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">SMS inbound</span>
+                    <InputText :value="currentConnection.info.sms.inbound.value"/>
+                  </div>
+
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">SMS outbound</span>
+                    <InputText :value="currentConnection.info.sms.outbound.value"/>
+                  </div>
+                </div>
+                
+                <div class="p-col">
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">DLR inbound</span>
+                    <InputText :value="currentConnection.info.dlr.inbound.value"/>
+                  </div>
+
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">DLR outbound</span>
+                    <InputText :value="currentConnection.info.dlr.outbound.value"/>
+                  </div>
+                </div>
+
+                <div class="p-col">
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">SMS storesize</span>
+                    <InputText :value="currentConnection.info.sms.storesize.value"/>
+                  </div>
+
+                  <div class="p-inputgroup p-p-1">
+                    <span class="p-inputgroup-addon">DLR storage</span>
+                    <InputText :value="currentConnection.info.dlr.storage.value"/>
+                  </div>
+                </div>
+              </div>
+            </AccordionTab>
+          
+          </Accordion>
         </Panel>
+
+        <div class="p-mt-3 p-grid">
+          <connection-statistics :connection="currentConnection" />
+        </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -97,6 +157,10 @@ import Toolbar from "primevue/toolbar/sfc";
 import Button from "primevue/button/sfc";
 import Skeleton from "primevue/skeleton/sfc";
 import Panel from "primevue/panel/sfc";
+import ConnectionStatistics from "./ConnectionStatistics";
+import Accordion from "primevue/accordion/sfc";
+import AccordionTab from "primevue/accordiontab/sfc";
+import InputText from "primevue/inputtext/sfc";
 
 export default {
   name: "connection-dashboard",
@@ -105,6 +169,10 @@ export default {
     Button,
     Skeleton,
     Panel,
+    ConnectionStatistics,
+    Accordion,
+    AccordionTab,
+    InputText,
   },
   computed: {
     ...mapState({
@@ -122,11 +190,13 @@ export default {
   },
   data() {
     return {
-      menuItems: [
+      restartButtons: [
         {
-          label: "test",
+          label: "Soft restart",
           icon: "pi pi-plus",
-          command: () => this.debug(),
+          command: () => {
+            console.log("here");
+          },
         },
       ],
     };
@@ -139,20 +209,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #connection-dashboard {
   padding: 20px;
   height: 100%;
+  overflow: scroll;
 }
 
-button {
-  margin: 5px;
+.p-panel-header {
+  position: relative !important;
 }
 
-.smsc-box {
-  padding: 10px;
-  margin-bottom: 5px;
-  border: 1px solid darkmagenta;
+.status-badge {
+  position: absolute;
+  top: -18px;
+  right: 20px;
 }
 
 .no-connection-box {

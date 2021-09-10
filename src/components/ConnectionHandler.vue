@@ -138,7 +138,7 @@ export default {
 
     clearFields() {
       this.newConnectionHost = "";
-      this.newConnectionPort = 13000;
+      this.newConnectionPort = null;
       this.newConnectionPassword = "";
     },
 
