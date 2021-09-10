@@ -35,10 +35,6 @@
           <div class="label">sent</div>
       </div>
 
-      <!-- <div class="dlr-stat-queued">{{ connection.info.dlr.queued.value }}</div>
-      <div class="dlr-stat-sent">
-        {{ connection.info.dlr.sent.total.value }}
-      </div> -->
     </div>
   </Fieldset>
 </template>

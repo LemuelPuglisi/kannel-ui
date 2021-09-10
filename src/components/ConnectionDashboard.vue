@@ -149,6 +149,11 @@
         <div class="p-mt-3 p-grid">
           <connection-statistics :connection="currentConnection" />
         </div>
+
+        <div class="p-mt-3">
+          <smsc-collection :connection="currentConnection"/>
+        </div>
+
       </div>
     </div>
   </div>
@@ -164,6 +169,7 @@ import ConnectionStatistics from "./ConnectionStatistics";
 import Accordion from "primevue/accordion/sfc";
 import AccordionTab from "primevue/accordiontab/sfc";
 import InputText from "primevue/inputtext/sfc";
+import SmscCollection from "./SmscCollection.vue"; 
 
 export default {
   name: "connection-dashboard",
@@ -176,6 +182,7 @@ export default {
     Accordion,
     AccordionTab,
     InputText,
+    SmscCollection
   },
   computed: {
     ...mapState({
