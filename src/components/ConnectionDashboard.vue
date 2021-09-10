@@ -68,14 +68,17 @@
 
       <div v-if="connectionNotActive">
         <Skeleton class="p-mt-3 p-mb-3" height="10rem"></Skeleton>
-        <div class="p-d-flex">
+        
+        <div class="p-d-flex p-jc-start p-mt-2 p-mb-2">
+          
           <Skeleton class="p-mb-3" height="3rem" width="15rem"></Skeleton>
           <h1 class="p-mb-0 p-mt-0 p-ml-5">
             Current connection is
             <span class="strong-underline">{{ currentConnection.status }}</span
-            >, Reconnecting.
+            >, reconnecting.
           </h1>
         </div>
+
         <Skeleton class="p-mb-3" height="3rem"></Skeleton>
         <Skeleton class="p-mb-3" height="3rem"></Skeleton>
         <Skeleton class="p-mb-3" height="3rem"></Skeleton>

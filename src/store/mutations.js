@@ -1,3 +1,6 @@
+function matchConnections(c1, c2) {
+    return c1.host == c2.host && c1.port == c2.port; 
+}
 
 export default {
 
@@ -5,21 +8,19 @@ export default {
         state.kannelConnectionsList.push(connection)
     }, 
 
-    SET_CURRENT_CONNECTION (state, host) {
-        state.currentConnection = state.kannelConnectionsList.find( 
-            inst => inst.host == host 
-        )
+    SET_CURRENT_CONNECTION (state, connection) {
+        const match = (c) => matchConnections(c, connection); 
+        state.currentConnection = state.kannelConnectionsList.find(match)
     }, 
 
     REMOVE_CURRENT_CONNECTION (state) {
         state.currentConnection = null; 
     }, 
 
-    REMOVE_KANNEL_CONNECTION (state, host) {
-        state.kannelConnectionsList = state.kannelConnectionsList.filter(
-            connection => connection.host != host 
-        );
-        if (state.currentConnection && state.currentConnection.host == host) {
+    REMOVE_KANNEL_CONNECTION (state, connection) {
+        const dontMatch = (c) => !matchConnections(c, connection); 
+        state.kannelConnectionsList = state.kannelConnectionsList.filter(dontMatch);
+        if (state.currentConnection && matchConnections(state.currentConnection, connection)) {
             state.currentConnection = null; 
         }
     }

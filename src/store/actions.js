@@ -11,16 +11,16 @@ export default {
         commit('ADD_KANNEL_CONNECTION', connection);
     },
 
-    setCurrentConnection({ commit }, host) {
-        commit('SET_CURRENT_CONNECTION', host);
+    setCurrentConnection({ commit }, connection) {
+        commit('SET_CURRENT_CONNECTION', connection);
     },
 
     removeCurrentConnection({ commit }) {
         commit('REMOVE_CURRENT_CONNECTION'); 
     }, 
 
-    removeKannelConnection({ commit }, host) {
-        commit('REMOVE_KANNEL_CONNECTION', host)
+    removeKannelConnection({ commit }, connection) {
+        commit('REMOVE_KANNEL_CONNECTION', connection)
     },
 
     pingAllConnections({ state }) {

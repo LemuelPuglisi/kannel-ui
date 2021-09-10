@@ -35,7 +35,7 @@ export default {
   methods: {
     removeConnection() {
       if (!this.connection) return;
-      this.$store.dispatch("removeKannelConnection", this.connection.host);
+      this.$store.dispatch("removeKannelConnection", this.connection);
     },
   }
 };
@@ -75,8 +75,15 @@ export default {
 
 .status-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
+}
+
+@media screen and (min-width: 1300px) {
+  .status-badge {
+    top: 20px;
+    right: 20px;
+  }
 }
 
 .selected {

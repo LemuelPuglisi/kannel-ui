@@ -9,7 +9,6 @@
             type="text"
             placeholder="host"
             v-model.trim="newConnectionHost"
-            required
           />
         </div>
         <div class="p-field p-mb-4">
@@ -17,7 +16,6 @@
             type="password"
             placeholder="password"
             v-model.trim="newConnectionPassword"
-            required
           />
         </div>
         <div class="p-field p-mb-4">
@@ -28,7 +26,6 @@
             :min="0"
             :max="65535"
             :useGrouping="false"
-            required
           />
         </div>
         <div class="p-ml-2 p-mt-2">
@@ -67,9 +64,6 @@
       </ScrollPanel>
     </div>
   </div>
-
-  <!-- {{ currentConnection }} <br>
-  {{ kannelConnectionsList }} -->
 
 </template>
 
@@ -143,7 +137,7 @@ export default {
     },
 
     selectConnection(connection) {
-      this.$store.dispatch("setCurrentConnection", connection.host);
+      this.$store.dispatch("setCurrentConnection", connection);
     },
   },
 };
@@ -168,6 +162,16 @@ export default {
   padding-left: 20px;
   display: flex;
   justify-content: center;
+}
+
+.p-scrollpanel {
+  max-height: 30vh !important;
+}
+
+@media screen and (min-height: 900px) {
+  .p-scrollpanel {
+    max-height: 40vh !important;
+  }
 }
 
 
