@@ -29,18 +29,12 @@
             class="p-mr-2 p-button-sm p-button-outlined p-button-warning"
           />
           <Button
-            label="s-restart"
-            @click="currentConnection.softRestart()"
+            label="Restart"
+            @click="restartKannelInstance"
             :disabled="connectionNotActive"
             icon="pi pi-replay"
-            class="p-mr-2 p-button-sm p-button-outlined p-button-warning"
-          />
-          <Button
-            label="h-restart"
-            @click="currentConnection.hardRestart()"
-            :disabled="connectionNotActive"
-            icon="pi pi-replay"
-            class="p-mr-2 p-button-sm p-button-outlined p-button-danger"
+            class="p-mr-2 p-button-sm p-button-outlined"
+            :class="hardRestart ? 'p-button-danger' : 'p-button-warning'"
           />
           <Button
             label="Shutdown"
@@ -50,7 +44,7 @@
             class="p-mr-2 p-button-sm p-button-outlined p-button-danger"
           />
           <Button
-            label="bwlist"
+            label="BWlist"
             @click="currentConnection.reloadLists()"
             :disabled="connectionNotActive"
             icon="pi pi-refresh"
@@ -143,6 +137,13 @@
               </div>
             </AccordionTab>
           
+            <AccordionTab header="Configurations">
+              <div class="p-field-checkbox">
+                <InputSwitch id="hard-restart-opt" v-model="hardRestart"/>
+                <label for="hard-restart-opt">Enable hard restart</label>
+              </div>
+            </AccordionTab>
+
           </Accordion>
         </Panel>
 
@@ -170,6 +171,7 @@ import Accordion from "primevue/accordion/sfc";
 import AccordionTab from "primevue/accordiontab/sfc";
 import InputText from "primevue/inputtext/sfc";
 import SmscCollection from "./SmscCollection.vue"; 
+import InputSwitch from 'primevue/inputswitch';
 
 export default {
   name: "connection-dashboard",
@@ -182,7 +184,8 @@ export default {
     Accordion,
     AccordionTab,
     InputText,
-    SmscCollection
+    SmscCollection, 
+    InputSwitch
   },
   computed: {
     ...mapState({
@@ -200,21 +203,21 @@ export default {
   },
   data() {
     return {
-      restartButtons: [
-        {
-          label: "Soft restart",
-          icon: "pi pi-plus",
-          command: () => {
-            console.log("here");
-          },
-        },
-      ],
+      hardRestart: false, 
     };
   },
   methods: {
     expelCurrentConnection() {
       this.$store.dispatch("removeCurrentConnection");
     },
+    restartKannelInstance() {
+      if (this.hardRestart) {
+        this.currentConnection.hardRestart()
+      }
+      else {
+        this.currentConnection.softRestart(); 
+      }
+    }
   },
 };
 </script>

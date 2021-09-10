@@ -37,6 +37,7 @@
 
     </div>
   </Fieldset>
+
 </template>
 
 <script>
@@ -57,22 +58,22 @@ export default {
     wpsSentPercentage() {
       const t = parseInt(this.connection.info.wdp.sent.total.value);
       const q = parseInt(this.connection.info.wdp.sent.queued.value);
-      return t == 0 ? t : (q / t) * 100;
+      return t == 0 ? t : (1 - q/t) * 100;
     },
     wpsReceivedPercentage() {
       const t = parseInt(this.connection.info.wdp.received.total.value);
       const q = parseInt(this.connection.info.wdp.received.queued.value);
-      return t == 0 ? t : (q / t) * 100;
+      return t == 0 ? t : (1 - q/t) * 100;
     },
     smsSentPercentage() {
       const t = parseInt(this.connection.info.sms.sent.total.value);
       const q = parseInt(this.connection.info.sms.sent.queued.value);
-      return t == 0 ? t : (q / t) * 100;
+      return t == 0 ? t : (1 - q/t) * 100;
     },
     smsReceivedPercentage() {
       const t = parseInt(this.connection.info.sms.received.total.value);
       const q = parseInt(this.connection.info.sms.received.queued.value);
-      return t == 0 ? t : (q / t) * 100;
+      return t == 0 ? t : (1 - q/t) * 100;
     },
   },
 };
