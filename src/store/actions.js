@@ -24,7 +24,6 @@ export default {
     },
 
     pingAllConnections({ state }) {
-        console.log('pinging all connections.')
         state.kannelConnectionsList.forEach(
             connection => connection.connect()
         );

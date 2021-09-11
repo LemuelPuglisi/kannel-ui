@@ -22,3 +22,7 @@ body, html {
 ::-webkit-scrollbar-corner {
     background: #20262e;
 }
+
+.text-secondary {
+    color: #7e96a1;
+}

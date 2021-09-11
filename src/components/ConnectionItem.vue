@@ -69,10 +69,6 @@ export default {
     border-radius: 10px; 
 }
 
-.text-secondary {
-  color: #7e96a1;
-}
-
 .status-badge {
   position: absolute;
   top: 10px;

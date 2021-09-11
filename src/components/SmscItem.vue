@@ -6,7 +6,7 @@
         <div class="p-m-3">
             <Tag :value="smsc.status" :severity="statusSeverity"/>
         </div>
-        <b>{{ smsc.id }}</b> <br />
+        <span class="p-text-nowrap"><b>{{ smsc.id }}</b></span><br/>
         <small> {{ smsc.host }} </small> <br>
       </div>
     </div>
@@ -19,6 +19,8 @@ import Tag from 'primevue/tag';
 const statusColorMap = new Map([
     ['online', 'success'], 
     ['re-connecting', 'warning'], 
+    ['connecting', 'warning'],     
+    ['disconnected', 'danger'],     
     ['dead', 'danger']
 ])
 

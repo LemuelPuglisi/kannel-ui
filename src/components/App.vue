@@ -27,12 +27,6 @@ export default {
     SplitterPanel,
     Toast,
   },
-  data() {
-    return {
-      debugResult: "<h1>OK</h1>",
-      sidebarFlag: true,
-    };
-  },
   created() {
     setInterval(() => {
       this.$store.dispatch("pingAllConnections");

@@ -102,36 +102,36 @@
                 <div class="p-col">
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">SMS inbound</span>
-                    <InputText :value="currentConnection.info.sms.inbound.value"/>
+                    <InputText :value="currentConnection.info.sms.inbound.value" readonly/>
                   </div>
 
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">SMS outbound</span>
-                    <InputText :value="currentConnection.info.sms.outbound.value"/>
+                    <InputText :value="currentConnection.info.sms.outbound.value" readonly/>
                   </div>
                 </div>
                 
                 <div class="p-col">
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">DLR inbound</span>
-                    <InputText :value="currentConnection.info.dlr.inbound.value"/>
+                    <InputText :value="currentConnection.info.dlr.inbound.value" readonly/>
                   </div>
 
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">DLR outbound</span>
-                    <InputText :value="currentConnection.info.dlr.outbound.value"/>
+                    <InputText :value="currentConnection.info.dlr.outbound.value" readonly/>
                   </div>
                 </div>
 
                 <div class="p-col">
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">SMS storesize</span>
-                    <InputText :value="currentConnection.info.sms.storesize.value"/>
+                    <InputText :value="currentConnection.info.sms.storesize.value" readonly/>
                   </div>
 
                   <div class="p-inputgroup p-p-1">
                     <span class="p-inputgroup-addon">DLR storage</span>
-                    <InputText :value="currentConnection.info.dlr.storage.value"/>
+                    <InputText :value="currentConnection.info.dlr.storage.value" readonly/>
                   </div>
                 </div>
               </div>

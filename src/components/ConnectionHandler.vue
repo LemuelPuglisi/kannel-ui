@@ -112,7 +112,6 @@ export default {
   },
   methods: {
     addNewConnection() {
-      console.log("eccome");
       if (this.emptyConnectionForm) {
         return;
       }
