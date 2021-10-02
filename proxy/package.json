@@ -1,0 +1,15 @@
+{
+  "name": "kannel-ui-proxy",
+  "version": "1.0.0",
+  "description": "Kannel HTTP administration CORS proxy",
+  "main": "proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors-anywhere": "^0.4.4",
+    "dotenv": "^10.0.0"
+  }
+}
