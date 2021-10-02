@@ -4,7 +4,6 @@
 
     <form @submit.prevent="addNewConnection" class="p-mb-3">
       <div class="p-fluid">
-
         <div class="p-field p-mb-0">
           <InputText
             type="text"
@@ -12,7 +11,6 @@
             v-model.trim="newConnectionHost"
           />
         </div>
-        
         <div class="p-field p-mb-0">
           <InputText
             type="password"
@@ -28,6 +26,13 @@
             :min="0"
             :max="65535"
             :useGrouping="false"
+          />
+        </div>
+        <div class="p-field p-mb-0">
+          <InputText
+            type="text"
+            placeholder="proxy (es. http://proxy:port)"
+            v-model.trim="newConnectionProxy"
           />
         </div>
         <div class="p-m-2 w-full p-d-flex p-jc-center">
@@ -48,15 +53,13 @@
       </Divider>
     </div>
 
-        <connection-item
-          v-for="connection in kannelConnectionsList"
-          v-bind:key="connection.host"
-          :connection="connection"
-          @click="selectConnection(connection)"
-        />
-
+    <connection-item
+      v-for="connection in kannelConnectionsList"
+      v-bind:key="connection.host"
+      :connection="connection"
+      @click="selectConnection(connection)"
+    />
   </div>
-
 </template>
 
 
@@ -85,6 +88,13 @@ export default {
       );
     },
 
+    newConnectionProxyValidated() {
+      // TODO: stronger proxy url validation
+      return this.newConnectionProxy.length > 0
+        ? this.newConnectionProxy
+        : null;
+    }, 
+
     ...mapState({
       kannelConnectionsList: "kannelConnectionsList",
       currentConnection: "currentConnection",
@@ -96,6 +106,7 @@ export default {
       newConnectionHost: "",
       newConnectionPort: null,
       newConnectionPassword: "",
+      newConnectionProxy: "", 
     };
   },
   methods: {
@@ -104,16 +115,17 @@ export default {
         return;
       }
       this.$store.dispatch("addKannelConnection", {
-        host: this.newConnectionHost,
-        pass: this.newConnectionPassword,
-        port: this.newConnectionPort,
-      }); 
+        host:  this.newConnectionHost,
+        pass:  this.newConnectionPassword,
+        port:  this.newConnectionPort,
+        proxy: this.newConnectionProxyValidated,
+      });
       this.$toast.add({
-        severity:'success', 
-        summary: 'Connection created', 
-        detail: `Trying to connect to ${this.newConnectionHost}`, 
-        life: 2000}
-      );
+        severity: "success",
+        summary: "Connection created",
+        detail: `Trying to connect to ${this.newConnectionHost}`,
+        life: 2000,
+      });
       this.clearFields();
     },
 
@@ -121,6 +133,7 @@ export default {
       this.newConnectionHost = "";
       this.newConnectionPort = null;
       this.newConnectionPassword = "";
+      this.newConnectionProxy = ""; 
     },
 
     selectConnection(connection) {
@@ -131,7 +144,6 @@ export default {
 </script>
 
 <style scoped>
-
 #connection-handler {
   padding: 20px;
   margin-right: 15px;
@@ -163,7 +175,6 @@ export default {
   }
 }
 
-
 /* DIVIDER CSS WORKAROUND BC OF PRIMEVUE BUG */
 
 .p-divider-solid.p-divider-horizontal:before {
@@ -184,15 +195,14 @@ export default {
 
 */
 
-.p-fluid .p-inputtext, 
+.p-fluid .p-inputtext,
 .p-fluid .p-inputnumber {
-    margin: 0 !important; 
-    margin-bottom: 10px !important;
+  margin: 0 !important;
+  margin-bottom: 10px !important;
 }
 
-.p-fluid .p-inputtext input, 
+.p-fluid .p-inputtext input,
 .p-fluid .p-inputnumber input {
   display: block !important;
 }
-
 </style>

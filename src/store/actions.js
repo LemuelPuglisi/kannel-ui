@@ -1,13 +1,16 @@
-import CrossOriginHttp from '../class/CrossOriginHttp';
+import { CrossOriginHttp, DummyHttp } from '../class/CrossOriginHttp';
 import KannelConnection from '../class/KannelConnection';
-
-const TEMPORARY_CORS_PROXY_URL = 'http://localhost:8181'
 
 export default {
 
     addKannelConnection({ commit }, params) {
-        const proxy = new CrossOriginHttp(TEMPORARY_CORS_PROXY_URL);
-        const connection = new KannelConnection(proxy, params.host, params.pass, params.port);
+        
+        const http = params.proxy
+            ? new CrossOriginHttp(params.proxy)
+            : new DummyHttp(); 
+        console.log(http)
+
+        const connection = new KannelConnection(http, params.host, params.pass, params.port);
         commit('ADD_KANNEL_CONNECTION', connection);
     },
 

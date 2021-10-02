@@ -1,4 +1,4 @@
-export default class CrossOriginHttp {
+export class CrossOriginHttp {
 
     constructor(corsProxyUrl) {
         this.corsProxyUrl = corsProxyUrl; 
@@ -15,6 +15,14 @@ export default class CrossOriginHttp {
 
     getRequiredCorsClientHeader() {
         return {'origin': 'x-requested-with'}
+    }
+
+}
+
+export class DummyHttp {
+
+    get(url) {
+        return fetch(url); 
     }
 
 }
