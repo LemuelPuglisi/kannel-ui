@@ -4,31 +4,33 @@
 
     <form @submit.prevent="addNewConnection" class="p-mb-3">
       <div class="p-fluid">
-        <div class="p-field">
+
+        <div class="p-field p-mb-0">
           <InputText
             type="text"
             placeholder="host"
             v-model.trim="newConnectionHost"
           />
         </div>
-        <div class="p-field p-mb-4">
+        
+        <div class="p-field p-mb-0">
           <InputText
             type="password"
             placeholder="password"
             v-model.trim="newConnectionPassword"
           />
         </div>
-        <div class="p-field p-mb-4">
+        <div class="p-field p-mb-0">
           <InputNumber
             v-model="newConnectionPort"
-            class="p-ml-2"
+            class="p-m-2"
             placeholder="port"
             :min="0"
             :max="65535"
             :useGrouping="false"
           />
         </div>
-        <div class="p-ml-2 p-mt-2">
+        <div class="p-m-2 w-full p-d-flex p-jc-center">
           <Button
             type="submit"
             label="connect"
@@ -46,8 +48,6 @@
       </Divider>
     </div>
 
-    <div id="connections-list-box">
-      <ScrollPanel style="max-height: 40vh; width: 100%">
         <connection-item
           v-for="connection in kannelConnectionsList"
           v-bind:key="connection.host"
@@ -55,14 +55,6 @@
           @click="selectConnection(connection)"
         />
 
-        <ScrollTop
-          target="parent"
-          :threshold="100"
-          class="custom-scrolltop"
-          icon="pi pi-arrow-up"
-        />
-      </ScrollPanel>
-    </div>
   </div>
 
 </template>
@@ -74,8 +66,6 @@ import InputText from "primevue/inputtext/sfc";
 import InputNumber from "primevue/inputnumber/sfc";
 import Button from "primevue/button/sfc";
 import Divider from "primevue/divider/sfc";
-import ScrollPanel from "primevue/scrollpanel/sfc";
-import ScrollTop from "primevue/scrolltop/sfc";
 import ConnectionItem from "./ConnectionItem";
 
 export default {
@@ -85,8 +75,6 @@ export default {
     InputNumber,
     Button,
     Divider,
-    ScrollPanel,
-    ScrollTop,
     ConnectionItem,
   },
 
@@ -147,6 +135,8 @@ export default {
 #connection-handler {
   padding: 20px;
   margin-right: 15px;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 #connection-handler input {
@@ -164,7 +154,7 @@ export default {
 }
 
 .p-scrollpanel {
-  max-height: 30vh !important;
+  height: 100px !important;
 }
 
 @media screen and (min-height: 900px) {
@@ -185,4 +175,24 @@ export default {
 .p-divider-solid.p-divider-vertical:before {
   border-left-style: solid !important;
 }
+
+/**
+
+  p-fluid p-input{*} have a default width of 100%. 
+  Using the margin, they will overflow the parent width.
+  Set the x axys margin to 0 to avoid the overflow.  
+
+*/
+
+.p-fluid .p-inputtext, 
+.p-fluid .p-inputnumber {
+    margin: 0 !important; 
+    margin-bottom: 10px !important;
+}
+
+.p-fluid .p-inputtext input, 
+.p-fluid .p-inputnumber input {
+  display: block !important;
+}
+
 </style>
