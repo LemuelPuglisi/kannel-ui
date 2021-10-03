@@ -1,16 +1,15 @@
-import { CrossOriginHttp, DummyHttp } from '../class/CrossOriginHttp';
+import { CorsAnywhereProxy, DummyProxy } from '../class/CrossOriginHttp';
 import KannelConnection from '../class/KannelConnection';
 
 export default {
 
     addKannelConnection({ commit }, params) {
         
-        const http = params.proxy
-            ? new CrossOriginHttp(params.proxy)
-            : new DummyHttp(); 
-        console.log(http)
+        const proxy = params.proxy
+            ? new CorsAnywhereProxy(params.proxy)
+            : new DummyProxy(); 
 
-        const connection = new KannelConnection(http, params.host, params.pass, params.port);
+        const connection = new KannelConnection(proxy, params.host, params.pass, params.port);
         commit('ADD_KANNEL_CONNECTION', connection);
     },
 

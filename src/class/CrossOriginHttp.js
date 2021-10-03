@@ -1,4 +1,4 @@
-export class CrossOriginHttp {
+export class CorsAnywhereProxy {
 
     constructor(corsProxyUrl) {
         this.corsProxyUrl = corsProxyUrl; 
@@ -19,7 +19,7 @@ export class CrossOriginHttp {
 
 }
 
-export class DummyHttp {
+export class DummyProxy {
 
     get(url) {
         return fetch(url); 

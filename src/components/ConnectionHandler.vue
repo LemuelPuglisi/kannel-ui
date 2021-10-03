@@ -31,7 +31,7 @@
         <div class="p-field p-mb-0">
           <InputText
             type="text"
-            placeholder="proxy (es. http://proxy:port)"
+            placeholder="Cors anywhere proxy url"
             v-model.trim="newConnectionProxy"
           />
         </div>
